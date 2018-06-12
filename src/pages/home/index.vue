@@ -1,13 +1,15 @@
 <template>
     <div>
         <home-header></home-header>
-        <hoem-swiper></hoem-swiper>
+        <home-swiper></home-swiper>
+        <home-icons></home-icons>
     </div>
 </template>
 
 <script>
 import HomeHeader from "./components/Header";
-import HoemSwiper from "./components/Swiper";
+import HomeSwiper from "./components/Swiper";
+import HomeIcons  from "./components/icons";
 export default {
     name: 'home',
     data(){
@@ -16,7 +18,8 @@ export default {
     },
     components: {
         HomeHeader,
-        HoemSwiper
+        HomeSwiper,
+        HomeIcons
     }
 }
 </script>
