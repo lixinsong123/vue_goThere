@@ -1,13 +1,20 @@
 <template>
     <div class="icons">
-        <div class="icon" v-for="(item,index) in iconsLiist "
-            :key ="index"
-        >
-            <div class="icon-img">
-                <img class="icon-imgContent" :src="item.imgUrl" alt="">
-            </div> 
-            <p class="icon-desc">{{item.text}}</p>
-        </div>
+         <swiper  ref="mySwiper">
+                <!-- slides -->
+                <swiper-slide  
+                       v-for="(page,index) in pages " :key ="index"
+                >
+                         <div class="icon" v-for="(item,sindex) in page " :key ="sindex" >
+                            <div class="icon-img">
+                                <img class="icon-imgContent" :src="item.imgUrl" alt="">
+                            </div> 
+                            <p class="icon-desc">{{item.text}}</p>
+                        </div>
+                </swiper-slide>
+                <!-- Optional controls -->
+                <div class="swiper-pagination"  slot="pagination"></div>     
+        </swiper>
     </div>
 </template>
 
@@ -49,7 +56,24 @@ export default {
                     imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/e3/67df61427c8e1302.png',
                     text: '演出'
                 },
+                {
+                    imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/e3/67df61427c8e1302.png',
+                    text: '演出'
+                }
             ]
+        }
+    },
+    computed: {
+        pages(){
+            const pages = [];
+            this.iconsLiist.forEach((item,index)=>{
+                const page = Math.floor(index/8);
+                if(!pages[page]){
+                    pages[page] = [];
+                }
+                pages[page].push(item);
+            });
+            return pages;
         }
     }
 }
@@ -57,8 +81,8 @@ export default {
 
 <style lang="stylus" scoped>
     @import  "~styles/varibles.styl";
-    .icons
-        height:0
+    @import  "~styles/mixins.styl";
+    .icons >>> swiper-container
         padding-bottom: 50%
         overflow: hidden
     .icon
@@ -90,5 +114,5 @@ export default {
             line-height: .44rem
             text-align: center
             color: $darkTextColor
-
+            ellipsis()
 </style>
